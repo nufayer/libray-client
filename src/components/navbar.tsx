@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useSession, signOut } from "next-auth/react";
+import { usePathname, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { Menu, X, BookOpen, User, LogOut, LayoutDashboard, ShoppingBag, Settings } from "lucide-react";
+import { useAuth } from "@/lib/auth/AuthProvider";
+import { signOut } from "@/lib/auth/client";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -30,7 +31,8 @@ const adminNavLinks = [
 
 export function Navbar() {
   const pathname = usePathname();
-  const { data: session, status } = useSession();
+  const router = useRouter();
+  const { user, isLoading, isAuthenticated } = useAuth();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
@@ -43,7 +45,25 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const isAdmin = (session?.user as { role?: string } | undefined)?.role === "admin";
+  const isAdmin = (user as { role?: string } | undefined)?.role === "admin";
+
+  if (isLoading) {
+    return (
+      <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border">
+        <nav className="section-container">
+          <div className="flex items-center justify-between h-16 md:h-20">
+            <Link href="/" className="flex items-center gap-2 text-2xl font-bold text-accent" aria-label="LibRay Home">
+              <span className="text-3xl font-bold gradient-text">LibRay</span>
+            </Link>
+            <div className="flex items-center gap-4">
+              <div className="w-20 h-8 bg-card-border rounded-lg animate-pulse" />
+              <div className="w-24 h-8 bg-card-border rounded-lg animate-pulse" />
+            </div>
+          </div>
+        </nav>
+      </header>
+    );
+  }
 
   return (
     <header
@@ -60,7 +80,7 @@ export function Navbar() {
           </Link>
 
           <div className="hidden md:flex items-center gap-8">
-            {status === "authenticated" ? (
+            {isAuthenticated ? (
               <>
                 {isAdmin ? (
                   adminNavLinks.map((link) => (
@@ -112,7 +132,7 @@ export function Navbar() {
           </div>
 
           <div className="flex items-center gap-4">
-            {status === "authenticated" ? (
+            {isAuthenticated ? (
               <div className="relative">
                 <button
                   onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
@@ -123,11 +143,11 @@ export function Navbar() {
                 >
                   <div className="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center">
                     <span className="text-accent font-semibold text-sm">
-                      {session?.user?.name?.[0]?.toUpperCase() || session?.user?.email?.[0]?.toUpperCase() || "U"}
+                      {user?.name?.[0]?.toUpperCase() || user?.email?.[0]?.toUpperCase() || "U"}
                     </span>
                   </div>
                   <span className="hidden sm:block text-sm font-medium text-foreground">
-                    {session?.user?.name || "User"}
+                    {user?.name || "User"}
                   </span>
                 </button>
 
@@ -140,8 +160,8 @@ export function Navbar() {
                     />
                     <div className="absolute right-0 mt-2 w-56 bg-card border border-card-border rounded-xl shadow-xl py-2 z-50 animate-slide-down">
                       <div className="px-4 py-3 border-b border-card-border">
-                        <p className="text-sm font-medium text-foreground">{session?.user?.name}</p>
-                        <p className="text-xs text-muted-foreground truncate">{session?.user?.email}</p>
+                        <p className="text-sm font-medium text-foreground">{user?.name}</p>
+                        <p className="text-xs text-muted-foreground truncate">{user?.email}</p>
                         {isAdmin && <span className="inline-block mt-1 px-2 py-0.5 text-xs font-medium bg-accent/20 text-accent rounded-full">Admin</span>}
                       </div>
                       {isAdmin ? (
@@ -171,7 +191,12 @@ export function Navbar() {
                       )}
                       <hr className="my-2 border-card-border" />
                       <button
-                        onClick={() => signOut({ callbackUrl: "/" })}
+                        onClick={async () => {
+                          await signOut();
+                          router.push("/");
+                          router.refresh();
+                          setIsUserMenuOpen(false);
+                        }}
                         className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-destructive hover:bg-destructive/10 transition-colors"
                       >
                         <LogOut className="w-4 h-4" aria-hidden="true" />
@@ -215,11 +240,11 @@ export function Navbar() {
           className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${isMobileMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}`}
         >
           <div className="py-4 space-y-2 border-t border-card-border">
-            {status === "authenticated" ? (
+            {isAuthenticated ? (
               <>
                 <div className="px-4 py-3 bg-card-hover rounded-lg mx-4">
-                  <p className="font-medium text-foreground">{session?.user?.name}</p>
-                  <p className="text-sm text-muted-foreground">{session?.user?.email}</p>
+                  <p className="font-medium text-foreground">{user?.name}</p>
+                  <p className="text-sm text-muted-foreground">{user?.email}</p>
                   {isAdmin && <span className="inline-block mt-1 px-2 py-0.5 text-xs font-medium bg-accent/20 text-accent rounded-full">Admin</span>}
                 </div>
                 {(isAdmin ? adminNavLinks : userNavLinks).map((link) => (
@@ -238,8 +263,10 @@ export function Navbar() {
                   </Link>
                 ))}
                 <button
-                  onClick={() => {
-                    signOut({ callbackUrl: "/" });
+                  onClick={async () => {
+                    await signOut();
+                    router.push("/");
+                    router.refresh();
                     setIsMobileMenuOpen(false);
                   }}
                   className="flex items-center gap-3 w-full px-4 py-3 rounded-lg mx-4 text-destructive hover:bg-destructive/10 transition-colors"
