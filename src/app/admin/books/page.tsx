@@ -24,15 +24,12 @@ export default function AddBookPage() {
     title: "",
     author: "",
     description: "",
-    fullDescription: "",
     price: "",
     originalPrice: "",
     category: "",
     tags: "",
-    pages: "",
     publisher: "",
     publishedDate: "",
-    isbn: "",
     language: "English",
     cover: "",
     inStock: true,
@@ -163,25 +160,14 @@ export default function AddBookPage() {
                   required
                 />
                 <div>
-                  <label className="label-field">Short Description</label>
+                  <label className="label-field">Description</label>
                   <textarea
                     name="description"
                     value={formData.description}
                     onChange={handleChange}
-                    rows={3}
+                    rows={5}
                     className="input-field w-full resize-none"
-                    placeholder="Brief description of the book"
-                  />
-                </div>
-                <div>
-                  <label className="label-field">Full Description</label>
-                  <textarea
-                    name="fullDescription"
-                    value={formData.fullDescription}
-                    onChange={handleChange}
-                    rows={6}
-                    className="input-field w-full resize-none"
-                    placeholder="Detailed description of the book"
+                    placeholder="Description of the book"
                   />
                 </div>
               </div>
@@ -280,15 +266,6 @@ export default function AddBookPage() {
               <h3 className="text-lg font-semibold text-foreground mb-4">Additional Info</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <Input
-                  label="Pages"
-                  name="pages"
-                  type="number"
-                  min="0"
-                  value={formData.pages}
-                  onChange={handleChange}
-                  placeholder="Number of pages"
-                />
-                <Input
                   label="Publisher"
                   name="publisher"
                   value={formData.publisher}
@@ -301,13 +278,6 @@ export default function AddBookPage() {
                   value={formData.publishedDate}
                   onChange={handleChange}
                   placeholder="e.g. January 1, 2024"
-                />
-                <Input
-                  label="ISBN"
-                  name="isbn"
-                  value={formData.isbn}
-                  onChange={handleChange}
-                  placeholder="978-0000000000"
                 />
                 <Input
                   label="Language"

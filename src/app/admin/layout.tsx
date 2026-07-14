@@ -8,6 +8,7 @@ import { signOut } from "@/lib/auth/client";
 import {
   LayoutDashboard,
   BookOpen,
+  List,
   Tag,
   ShoppingBag,
   Users,
@@ -23,6 +24,7 @@ import { Card } from "@/components/ui/Card";
 const sidebarLinks = [
   { href: "/admin/dashboard", label: "Overview", icon: LayoutDashboard },
   { href: "/admin/books", label: "Add Books", icon: BookOpen },
+  { href: "/admin/books/manage", label: "Manage Books", icon: List },
   { href: "/admin/categories", label: "Add Category", icon: Tag },
   { href: "/admin/orders", label: "Manage Orders", icon: ShoppingBag },
   { href: "/admin/users", label: "Manage Users", icon: Users },
