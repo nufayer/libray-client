@@ -18,6 +18,7 @@ interface Book {
   title: string;
   author: string;
   description: string;
+  fullDescription?: string;
   cover: string;
   rating: number;
   reviewCount: number;
@@ -88,6 +89,7 @@ const readingStats = [
 
 export default function Home() {
   const [featuredBooks, setFeaturedBooks] = useState<Book[]>([]);
+  const [bookOfTheMonth, setBookOfTheMonth] = useState<Book | null>(null);
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -100,7 +102,9 @@ export default function Home() {
         ]);
         const booksData = await booksRes.json();
         const categoriesData = await categoriesRes.json();
-        setFeaturedBooks(booksData.books || []);
+        const books = booksData.books || [];
+        setFeaturedBooks(books);
+        setBookOfTheMonth(books[0] || null);
         setCategories(categoriesData.categories || []);
       } catch (error) {
         console.error("Failed to fetch data:", error);
@@ -209,51 +213,59 @@ export default function Home() {
         </section>
 
         {/* Book of the Month */}
-        <section className="py-16 md:py-24 bg-primary-dark/30 border-y border-border/50" aria-labelledby="botm-heading">
-          <div className="section-container">
-            <div className="text-center max-w-3xl mx-auto mb-12">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 text-accent text-sm font-medium mb-6">
-                <Award className="w-4 h-4" aria-hidden="true" />
-                Book of the Month
-              </div>
-              <h2 id="botm-heading" className="section-title">The Midnight Library</h2>
-              <p className="section-subtitle mx-auto">By Matt Haig</p>
-            </div>
-            <div className="max-w-4xl mx-auto">
-              <Card variant="elevated" padding="lg">
-                <div className="flex flex-col md:flex-row gap-8 items-center">
-                  <div className="w-48 h-72 flex-shrink-0 rounded-xl overflow-hidden bg-primary-dark shadow-2xl">
-                    <img
-                      src="/books/midnight-library.jpg"
-                      alt="The Midnight Library by Matt Haig"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="flex-1 text-center md:text-left">
-                    <div className="flex items-center justify-center md:justify-start gap-1 mb-3">
-                      {[1, 2, 3, 4, 5].map((s) => (
-                        <Star key={s} className={`w-5 h-5 ${s <= 5 ? "text-amber-400 fill-current" : "text-muted-foreground"}`} />
-                      ))}
-                      <span className="ml-2 text-sm text-muted-foreground">5.0 (12,450 reviews)</span>
-                    </div>
-                    <p className="text-muted-foreground leading-relaxed mb-6">
-                      Between life and death there is a library, and within that library, the shelves go on forever. Every book provides a chance to try another life you could have lived. A beautiful meditation on the power of second chances and the choices that make life worth living.
-                    </p>
-                    <div className="flex items-center gap-4 justify-center md:justify-start">
-                      <span className="text-2xl font-bold text-accent">$14.99</span>
-                      <span className="text-lg text-muted-foreground line-through">$19.99</span>
-                      <span className="px-3 py-1 rounded-full bg-accent/10 text-accent text-sm font-medium">25% Off</span>
-                    </div>
-                    <Link href="/books" className="btn-primary inline-flex items-center gap-2 mt-6">
-                      Shop Now
-                      <ArrowRight className="w-4 h-4" />
-                    </Link>
-                  </div>
+        {bookOfTheMonth && (
+          <section className="py-16 md:py-24 bg-primary-dark/30 border-y border-border/50" aria-labelledby="botm-heading">
+            <div className="section-container">
+              <div className="text-center max-w-3xl mx-auto mb-12">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 text-accent text-sm font-medium mb-6">
+                  <Award className="w-4 h-4" aria-hidden="true" />
+                  Book of the Month
                 </div>
-              </Card>
+                <h2 id="botm-heading" className="section-title">{bookOfTheMonth.title}</h2>
+                <p className="section-subtitle mx-auto">By {bookOfTheMonth.author}</p>
+              </div>
+              <div className="max-w-4xl mx-auto">
+                <Card variant="elevated" padding="lg">
+                  <div className="flex flex-col md:flex-row gap-8 items-center">
+                    <Link href={`/books/${bookOfTheMonth._id}`} className="w-48 h-72 flex-shrink-0 rounded-xl overflow-hidden bg-primary-dark shadow-2xl hover:opacity-90 transition-opacity">
+                      <img
+                        src={bookOfTheMonth.cover}
+                        alt={`${bookOfTheMonth.title} by ${bookOfTheMonth.author}`}
+                        className="w-full h-full object-cover"
+                      />
+                    </Link>
+                    <div className="flex-1 text-center md:text-left">
+                      <div className="flex items-center justify-center md:justify-start gap-1 mb-3">
+                        {[1, 2, 3, 4, 5].map((s) => (
+                          <Star key={s} className={`w-5 h-5 ${s <= Math.round(bookOfTheMonth.rating) ? "text-amber-400 fill-current" : "text-muted-foreground"}`} />
+                        ))}
+                        <span className="ml-2 text-sm text-muted-foreground">{bookOfTheMonth.rating} ({bookOfTheMonth.reviewCount.toLocaleString()} reviews)</span>
+                      </div>
+                      <p className="text-muted-foreground leading-relaxed mb-6">
+                        {bookOfTheMonth.fullDescription || bookOfTheMonth.description}
+                      </p>
+                      <div className="flex items-center gap-4 justify-center md:justify-start">
+                        <span className="text-2xl font-bold text-accent">${bookOfTheMonth.price.toFixed(2)}</span>
+                        {bookOfTheMonth.originalPrice && bookOfTheMonth.originalPrice > bookOfTheMonth.price && (
+                          <>
+                            <span className="text-lg text-muted-foreground line-through">${bookOfTheMonth.originalPrice.toFixed(2)}</span>
+                            <span className="px-3 py-1 rounded-full bg-accent/10 text-accent text-sm font-medium">
+                              {Math.round((1 - bookOfTheMonth.price / bookOfTheMonth.originalPrice) * 100)}% Off
+                            </span>
+                          </>
+                        )}
+                      </div>
+                      <Link href={`/books/${bookOfTheMonth._id}`} className="btn-primary inline-flex items-center gap-2 mt-6">
+                        Shop Now
+                        <ArrowRight className="w-4 h-4" />
+                      </Link>
+                    </div>
+                  </div>
+                </Card>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
         <section className="py-16 md:py-24" aria-labelledby="features-heading">
           <div className="section-container">

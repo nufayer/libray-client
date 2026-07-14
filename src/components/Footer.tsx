@@ -5,10 +5,9 @@ import { Mail, Phone, MapPin, BookOpen, Truck, Shield, Headphones, MessageSquare
 import { LinkButton } from "@/components/ui/Button";
 
 const socialLinks = [
-  { icon: MessageSquare, href: "https://facebook.com/libray", label: "Facebook" },
-  { icon: Globe, href: "https://twitter.com/libray", label: "Twitter" },
-  { icon: Heart, href: "https://instagram.com/libray", label: "Instagram" },
-  { icon: Users, href: "https://linkedin.com/company/libray", label: "LinkedIn" },
+  { icon: Globe, href: "https://www.linkedin.com/in/nufayer-mahmud009", label: "LinkedIn" },
+  { icon: BookOpen, href: "https://github.com/nufayer", label: "GitHub" },
+  { icon: MessageSquare, href: "https://www.facebook.com/nufayer.mahmud", label: "Facebook" },
 ];
 
 const contactInfo = [
