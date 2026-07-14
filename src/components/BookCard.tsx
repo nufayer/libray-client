@@ -5,6 +5,7 @@ import { Star, ShoppingCart, Heart, BookOpen, Tag, DollarSign } from "lucide-rea
 import { LinkButton } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
+import { useCart } from "@/lib/CartContext";
 
 export interface Book {
   id: string | number;
@@ -44,6 +45,8 @@ export function BookCard({
   onAddToCart,
   onAddToWishlist,
 }: BookCardProps) {
+  const { addToCart } = useCart();
+  const handleAddToCart = onAddToCart || (() => addToCart(String(book.id)));
   const hasDiscount = book.originalPrice && book.originalPrice > book.price;
   const discountPercent = hasDiscount ? Math.round((1 - book.price / book.originalPrice!) * 100) : 0;
 
@@ -110,7 +113,7 @@ export function BookCard({
               <Heart className="w-4 h-4" aria-hidden="true" />
             </button>
             <button
-              onClick={(e) => { e.preventDefault(); e.stopPropagation(); onAddToCart?.(book); }}
+              onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleAddToCart(book); }}
               className="w-9 h-9 rounded-full bg-accent/90 text-primary-dark flex items-center justify-center hover:bg-accent hover:shadow-lg hover:shadow-accent/30 transition-all duration-200"
               aria-label={`Add ${book.title} to cart`}
             >
@@ -176,7 +179,7 @@ export function BookCard({
             variant="primary"
             className="w-full justify-center"
             disabled={!book.inStock}
-            onClick={(e) => { e.preventDefault(); onAddToCart?.(book); }}
+            onClick={(e) => { e.preventDefault(); handleAddToCart(book); }}
           >
             <ShoppingCart className="w-4 h-4" aria-hidden="true" />
             Add to Cart

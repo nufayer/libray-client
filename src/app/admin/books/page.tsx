@@ -24,6 +24,7 @@ export default function AddBookPage() {
     title: "",
     author: "",
     description: "",
+    fullDescription: "",
     price: "",
     originalPrice: "",
     category: "",
@@ -160,14 +161,25 @@ export default function AddBookPage() {
                   required
                 />
                 <div>
-                  <label className="label-field">Description</label>
+                  <label className="label-field">Short Description</label>
                   <textarea
                     name="description"
                     value={formData.description}
                     onChange={handleChange}
-                    rows={5}
+                    rows={3}
                     className="input-field w-full resize-none"
-                    placeholder="Description of the book"
+                    placeholder="Brief description of the book"
+                  />
+                </div>
+                <div>
+                  <label className="label-field">Full Description</label>
+                  <textarea
+                    name="fullDescription"
+                    value={formData.fullDescription}
+                    onChange={handleChange}
+                    rows={6}
+                    className="input-field w-full resize-none"
+                    placeholder="Detailed description of the book"
                   />
                 </div>
               </div>

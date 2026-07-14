@@ -53,6 +53,7 @@ export default function ManageBooksPage() {
     title: "",
     author: "",
     description: "",
+    fullDescription: "",
     price: "",
     originalPrice: "",
     category: "",
@@ -140,6 +141,7 @@ export default function ManageBooksPage() {
           title: b.title || "",
           author: b.author || "",
           description: b.description || "",
+          fullDescription: b.fullDescription || "",
           price: String(b.price ?? ""),
           originalPrice: String(b.originalPrice ?? ""),
           category: b.category || "",
@@ -510,14 +512,25 @@ export default function ManageBooksPage() {
                             required
                           />
                           <div>
-                            <label className="block text-sm font-medium text-foreground mb-1.5">Description</label>
+                            <label className="block text-sm font-medium text-foreground mb-1.5">Short Description</label>
                             <textarea
                               name="description"
                               value={editForm.description}
                               onChange={handleEditChange}
-                              rows={4}
+                              rows={3}
                               className="w-full rounded-lg bg-card border border-card-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent hover:border-accent/50 transition-all duration-200 text-base px-4 py-2.5 resize-none"
-                              placeholder="Description of the book"
+                              placeholder="Brief description of the book"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium text-foreground mb-1.5">Full Description</label>
+                            <textarea
+                              name="fullDescription"
+                              value={editForm.fullDescription}
+                              onChange={handleEditChange}
+                              rows={5}
+                              className="w-full rounded-lg bg-card border border-card-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent hover:border-accent/50 transition-all duration-200 text-base px-4 py-2.5 resize-none"
+                              placeholder="Detailed description of the book"
                             />
                           </div>
                         </div>

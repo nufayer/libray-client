@@ -3,8 +3,9 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import { Menu, X, BookOpen, User, LogOut, LayoutDashboard, ShoppingBag, Settings } from "lucide-react";
+import { Menu, X, BookOpen, User, LogOut, LayoutDashboard, ShoppingBag, ShoppingCart, Settings } from "lucide-react";
 import { useAuth } from "@/lib/auth/AuthProvider";
+import { useCart } from "@/lib/CartContext";
 import { signOut } from "@/lib/auth/client";
 
 const navLinks = [
@@ -33,6 +34,7 @@ export function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
   const { user, isLoading, isAuthenticated } = useAuth();
+  const { itemCount } = useCart();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
@@ -133,7 +135,22 @@ export function Navbar() {
 
           <div className="flex items-center gap-4">
             {isAuthenticated ? (
-              <div className="relative">
+              <>
+                {!isAdmin && (
+                  <Link
+                    href="/cart"
+                    className="relative p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-card-hover transition-colors"
+                    aria-label={`Cart with ${itemCount} items`}
+                  >
+                    <ShoppingCart className="w-5 h-5" />
+                    {itemCount > 0 && (
+                      <span className="absolute -top-1 -right-1 w-5 h-5 bg-accent text-primary-dark text-xs font-bold rounded-full flex items-center justify-center">
+                        {itemCount > 99 ? "99+" : itemCount}
+                      </span>
+                    )}
+                  </Link>
+                )}
+                <div className="relative">
                 <button
                   onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
                   className="flex items-center gap-2 px-3 py-2 rounded-lg bg-card border border-card-border hover:bg-card-hover transition-all duration-200"
@@ -177,17 +194,32 @@ export function Navbar() {
                           </Link>
                         ))
                       ) : (
-                        userNavLinks.map((link) => (
+                        <>
+                          {userNavLinks.map((link) => (
+                            <Link
+                              key={link.href}
+                              href={link.href}
+                              onClick={() => setIsUserMenuOpen(false)}
+                              className="flex items-center gap-3 px-4 py-2.5 text-sm text-muted-foreground hover:text-foreground hover:bg-card-hover transition-colors"
+                            >
+                              {link.icon && <link.icon className="w-4 h-4" aria-hidden="true" />}
+                              {link.label}
+                            </Link>
+                          ))}
                           <Link
-                            key={link.href}
-                            href={link.href}
+                            href="/cart"
                             onClick={() => setIsUserMenuOpen(false)}
                             className="flex items-center gap-3 px-4 py-2.5 text-sm text-muted-foreground hover:text-foreground hover:bg-card-hover transition-colors"
                           >
-                            {link.icon && <link.icon className="w-4 h-4" aria-hidden="true" />}
-                            {link.label}
+                            <ShoppingCart className="w-4 h-4" aria-hidden="true" />
+                            Cart
+                            {itemCount > 0 && (
+                              <span className="ml-auto px-2 py-0.5 text-xs font-bold bg-accent/20 text-accent rounded-full">
+                                {itemCount}
+                              </span>
+                            )}
                           </Link>
-                        ))
+                        </>
                       )}
                       <hr className="my-2 border-card-border" />
                       <button
@@ -206,6 +238,7 @@ export function Navbar() {
                   </>
                 )}
               </div>
+              </>
             ) : (
               <div className="flex items-center gap-3">
                 <Link
@@ -262,6 +295,25 @@ export function Navbar() {
                     {link.label}
                   </Link>
                 ))}
+                {!isAdmin && (
+                  <Link
+                    href="/cart"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={`flex items-center gap-3 px-4 py-3 rounded-lg mx-4 transition-colors ${
+                      pathname === "/cart"
+                        ? "bg-accent/10 text-accent"
+                        : "text-muted-foreground hover:text-foreground hover:bg-card-hover"
+                    }`}
+                  >
+                    <ShoppingCart className="w-5 h-5" aria-hidden="true" />
+                    Cart
+                    {itemCount > 0 && (
+                      <span className="ml-auto px-2 py-0.5 text-xs font-bold bg-accent/20 text-accent rounded-full">
+                        {itemCount}
+                      </span>
+                    )}
+                  </Link>
+                )}
                 <button
                   onClick={async () => {
                     await signOut();

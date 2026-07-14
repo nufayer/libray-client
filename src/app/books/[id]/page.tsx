@@ -28,6 +28,7 @@ import {
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
+import { useCart } from "@/lib/CartContext";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 
@@ -86,6 +87,7 @@ function StarRating({ rating, size = "md" }: { rating: number; size?: "sm" | "md
 export default function BookDetailsPage() {
   const params = useParams();
   const bookId = params.id;
+  const { addToCart } = useCart();
 
   const [book, setBook] = useState<Book | null>(null);
   const [relatedBooks, setRelatedBooks] = useState<Book[]>([]);
@@ -302,6 +304,7 @@ export default function BookDetailsPage() {
                   size="lg"
                   className="flex-1"
                   disabled={!book.inStock}
+                  onClick={() => addToCart(String(book._id))}
                 >
                   <ShoppingCart className="w-5 h-5" aria-hidden="true" />
                   {book.inStock ? "Add to Cart" : "Out of Stock"}
