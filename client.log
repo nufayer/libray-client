@@ -5,3 +5,193 @@
 ✓ Ready in 568ms
 ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
 
+ GET / 200 in 736ms (next.js: 235ms, proxy.ts: 68ms, application-code: 433ms)
+ GET /login 200 in 720ms (next.js: 616ms, proxy.ts: 11ms, application-code: 93ms)
+ GET /register 200 in 552ms (next.js: 466ms, proxy.ts: 4ms, application-code: 82ms)
+ GET / 200 in 154ms (next.js: 5ms, proxy.ts: 8ms, application-code: 142ms)
+[browser] A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head>
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="layout.tsx">
+                      <SegmentTrieNode>
+                      <link>
+                      <script>
+                      <script>
+                      <script>
+                      <RootLayout>
+                        <html lang="en" className="geist_deef..." suppressHydrationWarning={true}>
+                          <head>
+                          <body
+                            className="min-h-full flex flex-col bg-background text-foreground"
+-                           __processed_38da6140-aff0-4971-b7ab-830fb6a19778__="true"
+-                           bis_register="W3sibWFzdGVyIjp0cnVlLCJleHRlbnNpb25JZCI6ImVwcGlvY2VtaG1ubGJoanBsY2drb2ZjaWll..."
+                          >
+                  ...
+ 
+ GET /books/midnight-library.jpg 404 in 358ms (next.js: 167ms, proxy.ts: 9ms, application-code: 182ms)
+ GET /books/project-hail-mary.jpg 404 in 355ms (next.js: 136ms, proxy.ts: 10ms, application-code: 209ms)
+ GET /books/atomic-habits.jpg 404 in 357ms (next.js: 108ms, proxy.ts: 9ms, application-code: 240ms)
+ GET /books/evelyn-hugo.jpg 404 in 355ms (next.js: 236ms, proxy.ts: 11ms, application-code: 108ms)
+ GET /register 200 in 40ms (next.js: 8ms, proxy.ts: 4ms, application-code: 29ms)
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+ GET / 200 in 31ms (next.js: 4ms, proxy.ts: 1792µs, application-code: 25ms)
+ GET / 200 in 49ms (next.js: 4ms, proxy.ts: 2ms, application-code: 43ms)
+ GET /books/atomic-habits.jpg 404 in 238ms (next.js: 57ms, proxy.ts: 8ms, application-code: 173ms)
+ GET /books/midnight-library.jpg 404 in 244ms (next.js: 39ms, proxy.ts: 4ms, application-code: 201ms)
+ GET /books/project-hail-mary.jpg 404 in 235ms (next.js: 106ms, proxy.ts: 6ms, application-code: 123ms)
+ GET /books/evelyn-hugo.jpg 404 in 228ms (next.js: 170ms, proxy.ts: 4ms, application-code: 54ms)
+ GET / 200 in 20ms (next.js: 9ms, proxy.ts: 4ms, application-code: 7ms)
+ GET / 200 in 15ms (next.js: 6ms, proxy.ts: 3ms, application-code: 7ms)
+ GET / 200 in 49ms (next.js: 5ms, proxy.ts: 3ms, application-code: 41ms)
+ GET / 200 in 51ms (next.js: 6ms, proxy.ts: 4ms, application-code: 42ms)
+ GET / 200 in 23ms (next.js: 12ms, proxy.ts: 3ms, application-code: 8ms)
+ GET / 200 in 17ms (next.js: 6ms, proxy.ts: 3ms, application-code: 8ms)
+ GET / 200 in 129ms (next.js: 4ms, proxy.ts: 4ms, application-code: 121ms)
+[browser] A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head>
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="layout.tsx">
+                      <SegmentTrieNode>
+                      <link>
+                      <script>
+                      <script>
+                      <script>
+                      <RootLayout>
+                        <html lang="en" className="geist_deef..." suppressHydrationWarning={true}>
+                          <head>
+                          <body
+                            className="min-h-full flex flex-col bg-background text-foreground"
+-                           __processed_c72a6945-b513-4edf-a42e-a456bb576f50__="true"
+-                           bis_register="W3sibWFzdGVyIjp0cnVlLCJleHRlbnNpb25JZCI6ImVwcGlvY2VtaG1ubGJoanBsY2drb2ZjaWll..."
+                          >
+                  ...
+ 
+ GET /books/atomic-habits.jpg 404 in 239ms (next.js: 69ms, proxy.ts: 7ms, application-code: 162ms)
+ GET /books/midnight-library.jpg 404 in 241ms (next.js: 42ms, proxy.ts: 7ms, application-code: 191ms)
+ GET /books/evelyn-hugo.jpg 404 in 237ms (next.js: 149ms, proxy.ts: 7ms, application-code: 81ms)
+ GET /books/project-hail-mary.jpg 404 in 238ms (next.js: 121ms, proxy.ts: 7ms, application-code: 111ms)
+ GET / 200 in 16ms (next.js: 5ms, proxy.ts: 3ms, application-code: 7ms)
+ GET / 200 in 39ms (next.js: 5ms, proxy.ts: 3ms, application-code: 32ms)
+ GET /profile 200 in 468ms (next.js: 436ms, proxy.ts: 4ms, application-code: 28ms)
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+ GET /books/atomic-habits.jpg 404 in 234ms (next.js: 49ms, proxy.ts: 5ms, application-code: 179ms)
+ GET /books/midnight-library.jpg 404 in 236ms (next.js: 27ms, proxy.ts: 5ms, application-code: 203ms)
+ GET /books/evelyn-hugo.jpg 404 in 229ms (next.js: 133ms, proxy.ts: 4ms, application-code: 91ms)
+ GET /books/project-hail-mary.jpg 404 in 234ms (next.js: 103ms, proxy.ts: 7ms, application-code: 123ms)
+ GET /orders 200 in 486ms (next.js: 452ms, proxy.ts: 3ms, application-code: 31ms)
+ GET /books/project-hail-mary.jpg 404 in 301ms (next.js: 133ms, proxy.ts: 19ms, application-code: 148ms)
+ GET /books/atomic-habits.jpg 404 in 303ms (next.js: 114ms, proxy.ts: 18ms, application-code: 172ms)
+ GET /books/midnight-library.jpg 404 in 305ms (next.js: 86ms, proxy.ts: 17ms, application-code: 203ms)
+ GET /books/evelyn-hugo.jpg 404 in 298ms (next.js: 201ms, proxy.ts: 17ms, application-code: 79ms)
+ GET /profile 200 in 33ms (next.js: 6ms, proxy.ts: 3ms, application-code: 24ms)
+ GET /books/midnight-library.jpg 404 in 202ms (next.js: 26ms, proxy.ts: 3ms, application-code: 173ms)
+ GET /books/project-hail-mary.jpg 404 in 198ms (next.js: 87ms, proxy.ts: 6ms, application-code: 106ms)
+ GET /books/atomic-habits.jpg 404 in 200ms (next.js: 65ms, proxy.ts: 5ms, application-code: 130ms)
+ GET /books/evelyn-hugo.jpg 404 in 199ms (next.js: 138ms, proxy.ts: 8ms, application-code: 54ms)
+ GET /books/klara-sun.jpg 404 in 234ms (next.js: 61ms, proxy.ts: 3ms, application-code: 170ms)
+ GET /books/psychology-money.jpg 404 in 235ms (next.js: 26ms, proxy.ts: 3ms, application-code: 206ms)
+ GET /books/circe.jpg 404 in 232ms (next.js: 147ms, proxy.ts: 3ms, application-code: 83ms)
+ GET /books/educated.jpg 404 in 233ms (next.js: 168ms, proxy.ts: 3ms, application-code: 62ms)
+ GET / 200 in 20ms (next.js: 8ms, proxy.ts: 4ms, application-code: 8ms)
+ GET / 200 in 71ms (next.js: 7ms, proxy.ts: 6ms, application-code: 58ms)
+ GET / 200 in 70ms (next.js: 37ms, proxy.ts: 6ms, application-code: 28ms)
+ GET /login 200 in 31ms (next.js: 6ms, proxy.ts: 3ms, application-code: 22ms)
+ GET / 200 in 59ms (next.js: 8ms, proxy.ts: 3ms, application-code: 48ms)
+ GET / 200 in 54ms (next.js: 7ms, proxy.ts: 3ms, application-code: 44ms)
+ GET /books/atomic-habits.jpg 404 in 220ms (next.js: 52ms, proxy.ts: 8ms, application-code: 160ms)
+ GET /books/midnight-library.jpg 404 in 224ms (next.js: 31ms, proxy.ts: 10ms, application-code: 183ms)
+ GET /books/project-hail-mary.jpg 404 in 218ms (next.js: 105ms, proxy.ts: 7ms, application-code: 106ms)
+ GET /books/evelyn-hugo.jpg 404 in 214ms (next.js: 151ms, proxy.ts: 4ms, application-code: 59ms)
+ GET /books/psychology-money.jpg 404 in 180ms (next.js: 45ms, proxy.ts: 4ms, application-code: 130ms)
+ GET /books/klara-sun.jpg 404 in 183ms (next.js: 32ms, proxy.ts: 2ms, application-code: 149ms)
+ GET /books/educated.jpg 404 in 180ms (next.js: 90ms, proxy.ts: 10ms, application-code: 80ms)
+ GET /books/circe.jpg 404 in 181ms (next.js: 79ms, proxy.ts: 5ms, application-code: 96ms)
+ GET / 200 in 152ms (next.js: 6ms, proxy.ts: 4ms, application-code: 141ms)
+[browser] A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head>
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="layout.tsx">
+                      <SegmentTrieNode>
+                      <link>
+                      <script>
+                      <script>
+                      <script>
+                      <RootLayout>
+                        <html lang="en" className="geist_deef..." suppressHydrationWarning={true}>
+                          <head>
+                          <body
+                            className="min-h-full flex flex-col bg-background text-foreground"
+-                           __processed_55ba2412-7e82-454f-85a8-8ae8216dcb8e__="true"
+-                           bis_register="W3sibWFzdGVyIjp0cnVlLCJleHRlbnNpb25JZCI6ImVwcGlvY2VtaG1ubGJoanBsY2drb2ZjaWll..."
+                          >
+                  ...
+ 
+ GET /books/midnight-library.jpg 404 in 267ms (next.js: 30ms, proxy.ts: 4ms, application-code: 234ms)
+ GET /books/evelyn-hugo.jpg 404 in 280ms (next.js: 178ms, proxy.ts: 11ms, application-code: 91ms)
+ GET /books/project-hail-mary.jpg 404 in 283ms (next.js: 154ms, proxy.ts: 12ms, application-code: 117ms)
+ GET /books/atomic-habits.jpg 404 in 286ms (next.js: 131ms, proxy.ts: 12ms, application-code: 143ms)
+ GET /books/psychology-money.jpg 404 in 215ms (next.js: 51ms, proxy.ts: 4ms, application-code: 159ms)
+ GET /books/klara-sun.jpg 404 in 216ms (next.js: 22ms, proxy.ts: 4ms, application-code: 190ms)
+ GET /books/educated.jpg 404 in 211ms (next.js: 135ms, proxy.ts: 3ms, application-code: 73ms)
+ GET /books/circe.jpg 404 in 212ms (next.js: 113ms, proxy.ts: 3ms, application-code: 96ms)
+^C

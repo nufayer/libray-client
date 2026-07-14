@@ -14,8 +14,8 @@ interface SessionUser {
   id: string;
   name: string | null;
   email: string;
-  role?: string;
-  image?: string | null;
+  role: string;
+  image: string | null;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -28,7 +28,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         id: session.user.id,
         name: session.user.name ?? null,
         email: session.user.email ?? "",
-        role: (session.user as { role?: string }).role || "user",
+        role: (session.user as { role?: string }).role ?? "user",
         image: (session.user as { image?: string | null }).image ?? null,
       }
     : null;
