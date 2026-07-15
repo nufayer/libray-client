@@ -17,18 +17,18 @@ export default function middleware(request: NextRequest) {
   const isAuthenticated = !!sessionToken;
 
   // Protect protected routes
-  if ((isOnProfilePage || isOnOrdersPage || isOnAdminPage) && !isAuthenticated) {
-    const loginUrl = new URL("/login", request.url);
-    loginUrl.searchParams.set("callbackUrl", pathname);
-    return NextResponse.redirect(loginUrl);
-  }
+  // if ((isOnProfilePage || isOnOrdersPage || isOnAdminPage) && !isAuthenticated) {
+  //   const loginUrl = new URL("/login", request.url);
+  //   loginUrl.searchParams.set("callbackUrl", pathname);
+  //   return NextResponse.redirect(loginUrl);
+  // }
 
-  // Redirect authenticated users away from auth pages
-  if ((isOnLoginPage || isOnRegisterPage) && isAuthenticated) {
-    return NextResponse.redirect(new URL("/", request.url));
-  }
+  // // Redirect authenticated users away from auth pages
+  // if ((isOnLoginPage || isOnRegisterPage) && isAuthenticated) {
+  //   return NextResponse.redirect(new URL("/", request.url));
+  // }
 
-  return NextResponse.next();
+  // return NextResponse.next();
 }
 
 export const config = {
